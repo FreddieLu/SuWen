@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<!-- <meta charset="{dede:global.cfg_soft_lang/}"> -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+		<title>{dede:global.cfg_webname/}</title>
+		<meta name="description" content="{dede:global.cfg_description/}">
+		<meta name="keywords" content="{dede:global.cfg_keywords/}">
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmsurl/}/include/dedeajax2.js"></script>
+		<script language="javascript" type="text/javascript">
+		<!--
+		function CheckLogin(){
+			  var taget_obj = document.getElementById('_ajax_feedback');
+			  myajax = new DedeAjax(taget_obj,false,false,'','','');
+			  myajax.SendGet2("{dede:global.cfg_cmsurl/}/member/ajax_feedback.php");
+			  DedeXHTTP = null;
+		}
+		-->
+		</script>
+		<style type="text/css">
+			body{
+				padding-top: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		{dede:include filename="head.htm"/}
+		
+		<hr />
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2" align="center">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="sonchannel">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="true" aria-controls="collapse">
+										 {dede:field name='typename'/}
+									</a>
+								</h4>
+							</div>
+							<div id="collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sonchannel">
+								<div class="panel-body list-group">
+									<!--<div class="list-group">-->
+										{dede:channel type='self' noself='yes'}
+										<a href="[field:typelink /]" class="list-group-item">[field:typename /]</a>
+										{/dede:channel}
+									<!--</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<ul class="nav nav-pills">
+						{dede:channel type='top'}
+						<li role="presentation">
+							<a href="[field:typelink /]">
+								<span class="fa fa-caret-right"> [field:typename/]</span>
+							</a>
+						</li>
+						{/dede:channel}
+					</ul>
+					<div class="row">
+						<div class="col-md-12">
+							<ol class="breadcrumb">
+								<li>{dede:field name='position'/}</li>
+							</ol>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12" align="center">
+							<h2>{dede:field.title/}</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-2 col-md-offset-2">
+							<span class="text-muted">来源:</span>
+							<span class="text-info">{dede:field.source/}</span>
+						</div>
+						<div class="col-md-2">
+							<span class="text-muted">作者:</span>
+							<span class="text-info">{dede:field.writer/}</span>
+						</div>
+						<div class="col-md-2">
+							<span class="text-muted">点击:</span>
+							<span class="text-info"><script src="{dede:field name='phpurl'/}/count.php?view=yes&aid={dede:field name='id'/}&mid={dede:field name='mid'/}" type='text/javascript' language="javascript"></script>次</span>
+						</div>
+						<div class="col-md-2 col-md-offset-1">
+							<span class="text-muted">{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}</span>
+						</div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p>
+							{dede:field.description runphp='yes'}
+								if(@me<>'' )@me = '
+								<div>'.@me.'</div>';
+							{/dede:field.description}
+							</p>							
+						</div>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">{dede:field.body/}</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">{dede:field.vote/}</div>
+					</div>
+					<hr />
+					<p class="pull-right">责任编辑：{dede:adminname/}</p>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-4">
+							<ul class="pagination">
+								{dede:pagebreak/}
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12" align="center" >
+							
+							<div class="btn-group" role="group" aria-label="act">
+								<a href="{dede:field name='phpurl'/}/stow.php?aid={dede:field.id/}" target="_blank" class="btn btn-default" role="button"><span class="fa fa-star-o"> 收藏</span></a>
+								<a href="{dede:field name='phpurl'/}/erraddsave.php?aid={dede:field.id/}&title={dede:field.title/}" target="_blank" class="btn btn-default" role="button"><span class="fa fa-edit"> 挑错</span></a>
+								<a href="{dede:field name='phpurl'/}/recommend.php?aid={dede:field.id/}" target="_blank" class="btn btn-default" role="button"><span class="fa fa-thumbs-up"> 推荐</span></a>
+								<a href="#" class="btn btn-default" onClick="window.print();" role="button"><span class="fa fa-print"> 打印</span></a>
+							</div>
+							
+						</div>
+					</div>
+						
+					<!-- //分享代码开始 -->
+					{dede:bshare/}
+					<!-- //分享代码结束 -->
+					<hr />
+					<ul class="list-group">
+						<li class="list-group-item">{dede:prenext get='pre'/}</li>
+						<li class="list-group-item">{dede:prenext get='next'/}</li>
+					</ul>
+					
+					<!-- //AJAX评论区 -->
+					{dede:include file='ajaxfeedback.htm' /} 
+				</div>
+			</div>
+		</div>
+		
+		{dede:include filename="footer.htm"/}
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</body>
+</html>

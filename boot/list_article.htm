@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<!-- <meta charset="{dede:global.cfg_soft_lang/}"> -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+		<title>{dede:global.cfg_webname/}</title>
+		<meta name="description" content="{dede:global.cfg_description/}">
+		<meta name="keywords" content="{dede:global.cfg_keywords/}">
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			body{
+				padding-top: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		{dede:include filename="head.htm"/}
+		
+		<hr />
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2" align="center">
+					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="sonchannel">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="true" aria-controls="collapse">
+										 {dede:field name='typename'/}
+									</a>
+								</h4>
+							</div>
+							<div id="collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="sonchannel">
+								<div class="panel-body list-group">
+									<!--<div class="list-group">-->
+										{dede:channel type='self' noself='yes'}
+										<a href="[field:typelink /]" class="list-group-item">[field:typename /]</a>
+										{/dede:channel}
+									<!--</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<ul class="nav nav-pills">
+						{dede:channel type='top'}
+						<li role="presentation">
+							<a href="[field:typelink /]">
+								<span class="fa fa-caret-right"> [field:typename/]</span>
+							</a>
+						</li>
+						{/dede:channel}
+					</ul>
+					<div class="row">
+						<div class="col-md-12">
+							<ol class="breadcrumb">
+								<li>{dede:field name='position'/}</li>
+							</ol>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 list-group">
+							{dede:list pagesize='10'}
+							<li class="list-group-item"> 
+								<div class="media">
+									<div class="media-left">
+										[field:array runphp='yes']@me = (empty(@me['litpic']) ? "" : "<a href='{@me['arcurl']}'><img src='{@me['litpic']}' width='100' height='100'/></a>"); [/field:array]
+									</div>
+									<div class="media-body">
+										<div class="list-group-item-heading">
+											<a href="[field:arcurl/]"><h4>[field:title/]</h4></a>
+											<span class="text-info pull-right"> 
+												<span class="label label-info">[field:typelink/]</span>
+												<small>[field:pubdate function="MyDate('y-m-d',@me)"/]</small>
+											</span>
+										</div>
+										<p class="list-group-item-text">
+											[field:description/]...
+											<span class="badge">[field:click/]点击</span>
+										</p>
+									</div>
+								</div>
+							</li>
+							{/dede:list}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="pagination">
+								{dede:pagelist listitem="info,index,end,pre,next,pageno,option" listsize="6"/}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{dede:include filename="footer.htm"/}
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</body>
+</html>
